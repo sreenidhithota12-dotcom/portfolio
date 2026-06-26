@@ -1,326 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sreenidhi Thota | Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24;
-    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
-    --text: #f0eff8; --muted: #7c7b8a;
-    --accent: #8b7cf8; --accent2: #5dcaa5; --accent3: #f0997b;
-    --mono: 'Space Mono', monospace; --sans: 'Space Grotesk', sans-serif;
-  }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; font-size: 15px; line-height: 1.65; }
-
-  nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(10,10,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-  .nav-logo { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.05em; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; letter-spacing: 0.04em; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-
-  .hero { padding: 7rem 2.5rem 5rem; max-width: 900px; margin: 0 auto; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; padding: 6px 14px; border: 1px solid rgba(139,124,248,0.25); border-radius: 100px; background: rgba(139,124,248,0.07); }
-  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .hero h1 { font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
-  .hero h1 .name-highlight { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 540px; line-height: 1.8; margin-bottom: 1.25rem; }
-  .hero-stats { display: flex; gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-  .hero-stat { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
-  .hero-stat span { color: var(--accent2); font-weight: 700; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer; }
-  .btn-primary:hover { background: #7a6ae0; transform: translateY(-1px); }
-  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: transparent; color: var(--text); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 14px; border: 1px solid var(--border2); transition: border-color 0.2s, background 0.2s; cursor: pointer; }
-  .btn-ghost:hover { border-color: var(--accent); background: rgba(139,124,248,0.06); }
-
-  section { padding: 4.5rem 2.5rem; max-width: 900px; margin: 0 auto; }
-  .section-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.6rem; }
-  .section-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2.5rem; }
-
-  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
-  .about-text { color: var(--muted); line-height: 1.85; }
-  .about-text p { margin-bottom: 1rem; }
-  .about-text strong { color: var(--text); font-weight: 500; }
-  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-align: center; }
-  .stat-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 4px; }
-  .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
-
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-  .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
-  .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-  .skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
-  .skill-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-  .skill-icon.purple { background: rgba(139,124,248,0.12); color: var(--accent); }
-  .skill-icon.teal { background: rgba(93,202,165,0.12); color: var(--accent2); }
-  .skill-icon.coral { background: rgba(240,153,123,0.12); color: var(--accent3); }
-  .skill-icon.blue { background: rgba(55,138,221,0.12); color: #5a9de8; }
-  .skill-card-title { font-weight: 600; font-size: 15px; }
-  .skill-card-subtitle { font-size: 12px; color: var(--muted); }
-  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: var(--surface2); letter-spacing: 0.02em; }
-
-  .cert-list { display: flex; flex-direction: column; gap: 1rem; }
-  .cert-card { display: flex; align-items: flex-start; gap: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; transition: border-color 0.2s; }
-  .cert-card:hover { border-color: var(--border2); }
-  .cert-logo { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .cert-logo.oracle { background: rgba(240,80,60,0.12); color: #f0503c; }
-  .cert-logo.google { background: rgba(66,133,244,0.12); color: #4285f4; }
-  .cert-logo.cbit { background: rgba(139,124,248,0.12); color: var(--accent); }
-  .cert-info { flex: 1; }
-  .cert-name { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
-  .cert-issuer { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-  .cert-date { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-  .cert-badge { font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 100px; white-space: nowrap; align-self: center; }
-  .cert-badge.valid { background: rgba(93,202,165,0.1); color: var(--accent2); border: 1px solid rgba(93,202,165,0.2); }
-  .cert-badge.participated { background: rgba(139,124,248,0.1); color: var(--accent); border: 1px solid rgba(139,124,248,0.2); }
-
-  .activities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s; }
-  .activity-card:hover { border-color: var(--border2); }
-  .activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
-  .dot-teal { background: var(--accent2); } .dot-purple { background: var(--accent); } .dot-coral { background: var(--accent3); }
-  .activity-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
-  .activity-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
-
-  .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center; }
-  .contact-box h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
-  .contact-box p { color: var(--muted); margin-bottom: 2rem; max-width: 420px; margin-left: auto; margin-right: auto; }
-  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-  .contact-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid var(--border2); border-radius: 8px; color: var(--text); text-decoration: none; font-size: 13px; font-weight: 500; transition: border-color 0.2s, background 0.2s; }
-  .contact-link:hover { border-color: var(--accent); background: rgba(139,124,248,0.06); }
-
-  .divider { max-width: 900px; margin: 0 auto; padding: 0 2.5rem; }
-  .divider hr { border: none; border-top: 1px solid var(--border); }
-  footer { padding: 2rem 2.5rem; text-align: center; color: var(--muted); font-size: 11px; font-family: var(--mono); letter-spacing: 0.05em; }
-
-  @media (max-width: 640px) {
-    nav { padding: 1rem 1.25rem; } .nav-links { display: none; }
-    .hero, section { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .about-grid, .activities-grid { grid-template-columns: 1fr; }
-    .contact-box { padding: 2rem 1.25rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sreenidhi Thota | Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
+
 <body>
 
+<!-- NAVBAR -->
 <nav>
-  <span class="nav-logo">ST · Portfolio</span>
-  <ul class="nav-links">
+  <div class="logo">ST</div>
+  <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#activities">Activities</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<div class="hero">
-  <div class="hero-tag">CSE (AI &amp; ML) · CBIT Hyderabad</div>
-  <h1>Hi, I'm<br><span class="name-highlight">Sreenidhi Thota</span></h1>
-  <p class="hero-sub">First-year B.Tech student specialising in AI &amp; Machine Learning at CBIT, Hyderabad. Passionate about cloud technologies, generative AI, and building a strong foundation in computer science.</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><span>9.12</span> CGPA</div>
-    <div class="hero-stat"><span>96.4%</span> Class XII</div>
-    <div class="hero-stat"><span>3</span> Certifications</div>
-    <div class="hero-stat"><span>2028</span> Graduating</div>
-  </div>
-  <div class="hero-actions">
-    <a href="#skills" class="btn-primary">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      View Skills
-    </a>
-    <a href="#contact" class="btn-ghost">Get in Touch →</a>
-  </div>
-</div>
+<!-- HERO -->
+<section class="hero">
+  <h1>Hi, I'm <span>Sreenidhi Thota</span></h1>
+  <p>AI & Machine Learning Student | CBIT Hyderabad</p>
 
-<div class="divider"><hr></div>
+  <div class="buttons">
+    <a href="https://github.com/sreenidhithota12-dotcom" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/sreenidhi-thota-3080a2336/" target="_blank">LinkedIn</a>
+    <a href="https://studentperformanceproject-n6urwuhsvahcbvpifuqmon.streamlit.app/" target="_blank">Live Project</a>
+  </div>
+</section>
 
+<!-- ABOUT -->
 <section id="about">
-  <div class="section-label">// 00 — background</div>
-  <h2 class="section-title">About me</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>I'm a first-year B.Tech student in <strong>Computer Science &amp; Engineering (AI &amp; ML)</strong> at Chaitanya Bharathi Institute of Technology, Hyderabad — one of the top autonomous engineering colleges in Telangana.</p>
-      <p>I secured a <strong>CGPA of 9.12</strong> in my first semester and come from a strong academic background, having scored <strong>96.4%</strong> in Class XII (PCM) from Sri Chaitanya Junior College, Karimnagar.</p>
-      <p>My interests lie at the intersection of cloud computing and generative AI. I actively pursue certifications and workshops to complement my coursework, and I enjoy contributing to my college community through hackathons and technical events.</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat-box"><span class="stat-num">9.12</span><span class="stat-label">CGPA</span></div>
-      <div class="stat-box"><span class="stat-num">AIML</span><span class="stat-label">Specialization</span></div>
-      <div class="stat-box"><span class="stat-num">HYD</span><span class="stat-label">Based in</span></div>
-      <div class="stat-box"><span class="stat-num">2028</span><span class="stat-label">Graduating</span></div>
-    </div>
-  </div>
+  <h2>About Me</h2>
+  <p>
+    First-year CSE (AI & ML) student at CBIT Hyderabad with strong interest in Machine Learning,
+    Data Science, and Software Development. Passionate about building real-world projects.
+  </p>
 </section>
 
-<div class="divider"><hr></div>
-
+<!-- SKILLS -->
 <section id="skills">
-  <div class="section-label">// 01 — technical skills</div>
-  <h2 class="section-title">What I work with</h2>
-  <div class="skills-grid">
+  <h2>Skills</h2>
 
-    <div class="skill-card">
-      <div class="skill-card-header">
-        <div class="skill-icon purple">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
-        <div><div class="skill-card-title">Languages</div><div class="skill-card-subtitle">Core programming</div></div>
-      </div>
-      <div class="tag-list">
-        <span class="tag">Python</span><span class="tag">Java</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">JavaScript</span><span class="tag">SQL</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-card-header">
-        <div class="skill-icon teal">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        </div>
-        <div><div class="skill-card-title">Web &amp; Frameworks</div><div class="skill-card-subtitle">Building for the browser</div></div>
-      </div>
-      <div class="tag-list">
-        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">REST APIs</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-card-header">
-        <div class="skill-icon coral">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
-        </div>
-        <div><div class="skill-card-title">Data &amp; Databases</div><div class="skill-card-subtitle">Storage &amp; analytics</div></div>
-      </div>
-      <div class="tag-list">
-        <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Pandas</span><span class="tag">NumPy</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-card-header">
-        <div class="skill-icon blue">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-        </div>
-        <div><div class="skill-card-title">Tools &amp; Platforms</div><div class="skill-card-subtitle">Dev environment</div></div>
-      </div>
-      <div class="tag-list">
-        <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">Linux</span><span class="tag">Docker</span>
-      </div>
-    </div>
-
+  <div class="grid">
+    <div class="card">Python</div>
+    <div class="card">Java</div>
+    <div class="card">C</div>
+    <div class="card">SQL</div>
+    <div class="card">HTML</div>
+    <div class="card">CSS</div>
+    <div class="card">JavaScript</div>
+    <div class="card">Machine Learning</div>
+    <div class="card">Pandas</div>
+    <div class="card">NumPy</div>
   </div>
 </section>
 
-<div class="divider"><hr></div>
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Projects</h2>
 
-<section id="certifications">
-  <div class="section-label">// 02 — certifications</div>
-  <h2 class="section-title">Certifications &amp; achievements</h2>
-  <div class="cert-list">
-
-    <div class="cert-card">
-      <div class="cert-logo oracle">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3h-9A7.5 7.5 0 0 0 0 10.5C0 14.64 3.36 18 7.5 18H9v-2.5H7.5a5 5 0 1 1 0-10h9a5 5 0 1 1 0 10H15V18h1.5C20.64 18 24 14.64 24 10.5A7.5 7.5 0 0 0 16.5 3z"/></svg>
-      </div>
-      <div class="cert-info">
-        <div class="cert-name">Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</div>
-        <div class="cert-issuer">Oracle University · Credential ID: 103445594OCI25AICFA</div>
-        <div class="cert-date">Issued: April 11, 2026 &nbsp;·&nbsp; Valid until: April 11, 2028</div>
-      </div>
-      <span class="cert-badge valid">Valid ✓</span>
-    </div>
-
-    <div class="cert-card">
-      <div class="cert-logo google">
-        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      </div>
-      <div class="cert-info">
-        <div class="cert-name">Gen AI Certification Drive — Certificate of Participation</div>
-        <div class="cert-issuer">Google Student Ambassador Program &amp; Neural Nexus, CBIT</div>
-        <div class="cert-date">Issued: September 18, 2025</div>
-      </div>
-      <span class="cert-badge participated">Participated</span>
-    </div>
-
-    <div class="cert-card">
-      <div class="cert-logo cbit">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-7 10 7-10 7-10-7z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-      </div>
-      <div class="cert-info">
-        <div class="cert-name">AI²: Applied Generative AI for Intelligent Applications — Certificate of Appreciation</div>
-        <div class="cert-issuer">Dept. of AI &amp; ML, CBIT (Autonomous), Hyderabad · 32-hour Value Added Course</div>
-        <div class="cert-date">January 2nd–7th, 2026</div>
-      </div>
-      <span class="cert-badge participated">Completed</span>
-    </div>
-
+  <div class="project-card">
+    <h3>Student Performance Predictor</h3>
+    <p>ML model predicting student exam scores using academic factors.</p>
+    <a href="https://studentperformanceproject-n6urwuhsvahcbvpifuqmon.streamlit.app/" target="_blank">Live Demo</a>
+    <a href="https://github.com/sreenidhithota12-dotcom/StudentPerformanceProject" target="_blank">GitHub</a>
   </div>
+
+  <div class="project-card">
+    <h3>A* Maze Solver</h3>
+    <p>Pathfinding algorithm visualization using Python.</p>
+    <a href="https://github.com/sreenidhithota12-dotcom/a-star-maze-solver" target="_blank">GitHub</a>
+  </div>
+
+  <div class="project-card">
+    <h3>Iris Classification</h3>
+    <p>ML classification using sklearn on iris dataset.</p>
+    <a href="https://github.com/sreenidhithota12-dotcom/Iris-Classification-EDA-ML-" target="_blank">GitHub</a>
+  </div>
+
 </section>
 
-<div class="divider"><hr></div>
-
-<section id="activities">
-  <div class="section-label">// 03 — activities</div>
-  <h2 class="section-title">Co-curricular &amp; leadership</h2>
-  <div class="activities-grid">
-    <div class="activity-card">
-      <div class="activity-dot dot-teal"></div>
-      <div>
-        <div class="activity-title">Smart India Hackathon (SIH) 2025</div>
-        <div class="activity-sub">Participated in the college-level round of India's largest hackathon, collaborating on real-world problem statements.</div>
-      </div>
-    </div>
-    <div class="activity-card">
-      <div class="activity-dot dot-purple"></div>
-      <div>
-        <div class="activity-title">Power BI Workshop</div>
-        <div class="activity-sub">Attended a hands-on workshop on data visualization and business intelligence using Microsoft Power BI.</div>
-      </div>
-    </div>
-    <div class="activity-card">
-      <div class="activity-dot dot-coral"></div>
-      <div>
-        <div class="activity-title">College Technical Fest — Volunteer</div>
-        <div class="activity-sub">Volunteered in organizing and managing college technical events, demonstrating leadership and teamwork.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
+<!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">// 04 — get in touch</div>
-  <h2 class="section-title">Let's connect</h2>
-  <div class="contact-box">
-    <h3>Open to opportunities</h3>
-    <p>Internships, collaborations, or just a conversation about AI &amp; tech — feel free to reach out.</p>
-    <div class="contact-links">
-      <a href="mailto:sreenidhithota12@gmail.com" class="contact-link">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        sreenidhithota12@gmail.com
-      </a>
-      <a href="https://www.linkedin.com/in/sreenidhithota-3080a2336" target="_blank" class="contact-link">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
-        LinkedIn
-      </a>
-      <a href="tel:+917207813252" class="contact-link">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.91a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.94.35 1.91.59 2.91.72A2 2 0 0 1 22 16.92z"/></svg>
-        +91 72078 13252
-      </a>
-    </div>
+  <h2>Contact</h2>
+
+  <p>Email: sreenidhithota12@gmail.com</p>
+  <p>LeetCode: 200+ Problems Solved</p>
+
+  <div class="buttons">
+    <a href="mailto:sreenidhithota12@gmail.com">Email Me</a>
+    <a href="https://leetcode.com/u/SREENIDHI_THOTA/" target="_blank">LeetCode</a>
   </div>
 </section>
 
-<footer>built with care · sreenidhi thota · cbit hyderabad · 2025</footer>
-
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sreenidhi Thota | Built for Internships</p>
+</footer>
+    <script src="script.js"></script>
 </body>
 </html>
