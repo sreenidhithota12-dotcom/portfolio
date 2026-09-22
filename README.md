@@ -1,7 +1,20 @@
-# Sreenidhi Thota
+# Sreenidhi Thota - Portfolio
 
-🌐 Portfolio: https://portfolio-lime-nine-17.vercel.app/
+A responsive React portfolio showcasing full-stack development, machine learning projects, technical skills, education, and coding achievements.
 
-💼 LinkedIn: https://www.linkedin.com/in/sreenidhithota-3080a2336
+Live site: https://portfolio-lime-nine-17.vercel.app/
 
-🎓 CSE (AI & ML), CBIT Hyderabad
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Production build
+
+```bash
+npm run build
+```
+
+Built with React and Vite and ready for deployment on Vercel.
